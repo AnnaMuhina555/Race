@@ -1,4 +1,2 @@
-print("Hi")
-
-print(1)
+import pygame
 
