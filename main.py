@@ -1,4 +1,5 @@
 import pygame
+from car import *
 
 WIDTH = 1500
 HEIGHT = 750
@@ -9,6 +10,9 @@ grass = pygame.image.load("img/grass.jpg")
 grass = pygame.transform.scale(grass, (WIDTH, HEIGHT))
 track = pygame.image.load("img/track.png")
 track = pygame.transform.scale(track, (WIDTH - 400, HEIGHT))
+# finish =
+
+player = PlayerCar(5, 5)
 
 run = True
 while run:
@@ -19,3 +23,4 @@ while run:
     pygame.display.update()
     screen.blit(grass, (0, 0))
     screen.blit(track, (200, 0))
+    player.draw(screen)
