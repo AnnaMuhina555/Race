@@ -1,4 +1,5 @@
 import pygame
+import math
 from utils import *
 
 
@@ -15,6 +16,24 @@ class AbstractCar:
     def draw(self, screen):
         blit_rotate_center(screen, self.img, (self.x, self.y), self.angle)
 
+    def move(self):
+        radians = math.radians(self.angle)
+        vertical = math.cos(radians) * self.vel
+        horizontal = math.sin(radians) * self.vel
+
+        self.y -= vertical
+        self.x -= horizontal
+
+    def rotate(self, left=False, right=False):
+        if left:
+            self.angle += self.rotation_vel
+        elif right:
+            self.angle -= self.rotation_vel
+
+    def moveForwards(self):
+        self.vel = min(self.vel + self.acceleration, self.max_vel)
+        self.move()
+
 
 class PlayerCar(AbstractCar):
     carImg = pygame.image.load("img/car1.png")
@@ -22,3 +41,14 @@ class PlayerCar(AbstractCar):
     START_POSITION = (260, 300)
 
 
+def movePlayer(playerCar):
+    keys = pygame.key.get_pressed()
+    moved = False
+
+    if keys[pygame.K_a]:
+        playerCar.rotate(left=True)
+    if keys[pygame.K_d]:
+        playerCar.rotate(right=True)
+    if keys[pygame.K_w]:
+        moved = True
+        playerCar.moveForwards()
