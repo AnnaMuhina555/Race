@@ -8,4 +8,5 @@ class Nitro:
         self.y = 0
         self.image = pygame.image.load("img/nitro.png")
         self.show = False
+        self.locations = []
     
